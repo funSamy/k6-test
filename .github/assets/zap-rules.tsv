@@ -3,69 +3,69 @@
 # Actions: IGNORE, FAIL, WARN, PASS
 
 # Ignore some directories that are expected to cause alerts
-10038                                                             	 IGNORE	 (\/index\.html|\/login|\/logout)	 # Targets CSRF tokens on login/logout
+10038	IGNORE	(\/index\.html|\/login|\/logout)	# Targets CSRF tokens on login/logout
 
 # Ignore certain security headers on test/development environments
-10038                                                             	 IGNORE	 .*                              	 # CSRF tokens checked manually
+10038	IGNORE	.*	# CSRF tokens checked manually
 
 # Set certain alerts to WARN instead of FAIL
-10020                                                             	 WARN  	 .*                              	 # X-Frame-Options header not set (less critical)
-10021                                                             	 WARN  	 .*                              	 # X-Content-Type-Options header missing (less critical)
+10020	WARN	.*	# X-Frame-Options header not set (less critical)
+10021	WARN	.*	# X-Content-Type-Options header missing (less critical)
 
 # Critical vulnerabilities that should cause the build to fail
-10016                                                             	 FAIL  	 .*                              	 # Web Browser XSS Protection Not Enabled
-10202                                                             	 FAIL  	 .*                              	 # Absence of Anti-CSRF Tokens
+10016	FAIL	.*	# Web Browser XSS Protection Not Enabled
+10202	FAIL	.*	# Absence of Anti-CSRF Tokens
 
 # Injection vulnerabilities (critical)
-40012                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Reflected)
-40014                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Persistent)
-40018                                                             	 FAIL  	 .*                              	 # SQL Injection
-40019                                                             	 FAIL  	 .*                              	 # SQL Injection - MySQL
-40020                                                             	 FAIL  	 .*                              	 # SQL Injection - PostgreSQL
-40021                                                             	 FAIL  	 .*                              	 # SQL Injection - Oracle
-40022                                                             	 FAIL  	 .*                              	 # SQL Injection - SQLServer
-90019                                                             	 FAIL  	 .*                              	 # Server-Side Include
-40023                                                             	 FAIL  	 .*                              	 # OS Command Injection
-40024                                                             	 FAIL  	 .*                              	 # LDAP Injection
-40028                                                             	 FAIL  	 .*                              	 # ELMAH Information Leak
-40029                                                             	 FAIL  	 .*                              	 # Trace.axd Information Leak
+40012	FAIL	.*	# Cross Site Scripting (Reflected)
+40014	FAIL	.*	# Cross Site Scripting (Persistent)
+40018	FAIL	.*	# SQL Injection
+40019	FAIL	.*	# SQL Injection - MySQL
+40020	FAIL	.*	# SQL Injection - PostgreSQL
+40021	FAIL	.*	# SQL Injection - Oracle
+40022	FAIL	.*	# SQL Injection - SQLServer
+90019	FAIL	.*	# Server-Side Include
+40023	FAIL	.*	# OS Command Injection
+40024	FAIL	.*	# LDAP Injection
+40028	FAIL	.*	# ELMAH Information Leak
+40029	FAIL	.*	# Trace.axd Information Leak
 
 # Authentication & Session Management
-10202                                                             	 FAIL  	 .*                              	 # Absence of Anti-CSRF Tokens
-10015                                                             	 WARN  	 .*                              	 # Incomplete or No Cache-control and Pragma HTTP Header Set
-10016                                                             	 WARN  	 .*                              	 # Web Browser XSS Protection Not Enabled
-10017                                                             	 WARN  	 .*                              	 # Cross-Domain JavaScript Source File Inclusion
-10019                                                             	 WARN  	 .*                              	 # Content-Type Header Missing
-10023                                                             	 WARN  	 .*                              	 # Information Disclosure - Debug Error Messages
-10024                                                             	 WARN  	 .*                              	 # Information Disclosure - Sensitive Information in URL
-10025                                                             	 WARN  	 .*                              	 # Information Disclosure - Sensitive Information in HTTP Referrer Header
-10027                                                             	 WARN  	 .*                              	 # Information Disclosure - Suspicious Comments
-10032                                                             	 WARN  	 .*                              	 # Viewstate without MAC signature
-10040                                                             	 WARN  	 .*                              	 # Secure Pages Include Mixed Content
-10049                                                             	 WARN  	 .*                              	 # Content Security Policy Not Set
-10054                                                             	 WARN  	 .*                              	 # Cookie Without SameSite Attribute
+10202	FAIL	.*	# Absence of Anti-CSRF Tokens
+10015	WARN	.*	# Incomplete or No Cache-control and Pragma HTTP Header Set
+10016	WARN	.*	# Web Browser XSS Protection Not Enabled
+10017	WARN	.*	# Cross-Domain JavaScript Source File Inclusion
+10019	WARN	.*	# Content-Type Header Missing
+10023	WARN	.*	# Information Disclosure - Debug Error Messages
+10024	WARN	.*	# Information Disclosure - Sensitive Information in URL
+10025	WARN	.*	# Information Disclosure - Sensitive Information in HTTP Referrer Header
+10027	WARN	.*	# Information Disclosure - Suspicious Comments
+10032	WARN	.*	# Viewstate without MAC signature
+10040	WARN	.*	# Secure Pages Include Mixed Content
+10049	WARN	.*	# Content Security Policy Not Set
+10054	WARN	.*	# Cookie Without SameSite Attribute
 
 # Informational alerts - Less critical alerts set to IGNORE to focus on high-risk items
-10011                                                             	 IGNORE	 .*                              	 # Cookie Without Secure Flag
-10015                                                             	 IGNORE	 .*                              	 # Incomplete or No Cache-control and Pragma HTTP Header Set
-10096                                                             	 IGNORE	 .*                              	 # Timestamp Disclosure
-10036                                                             	 IGNORE	 .*                              	 # Server Leaks Information via "X-Powered-By"
-10038                                                             	 IGNORE	 .*                              	 # Content Security Policy (CSP) Header Not Set
-10043                                                             	 IGNORE	 .*                              	 # User Controllable HTML Element Attribute (Potential XSS)
-10109                                                             	 IGNORE	 .*                              	 # Modern Web Application
+10011	IGNORE	.*	# Cookie Without Secure Flag
+10015	IGNORE	.*	# Incomplete or No Cache-control and Pragma HTTP Header Set
+10096	IGNORE	.*	# Timestamp Disclosure
+10036	IGNORE	.*	# Server Leaks Information via "X-Powered-By"
+10038	IGNORE	.*	# Content Security Policy (CSP) Header Not Set
+10043	IGNORE	.*	# User Controllable HTML Element Attribute (Potential XSS)
+10109	IGNORE	.*	# Modern Web Application
 
 # Path Traversal & File Inclusion
-40012                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Reflected)
-40013                                                             	 FAIL  	 .*                              	 # Session Fixation
-40014                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Persistent)
-40003                                                             	 FAIL  	 .*                              	 # CRLF Injection
-40007                                                             	 FAIL  	 .*                              	 # Remote OS Command Injection
-40008                                                             	 FAIL  	 .*                              	 # Remote File Inclusion
-40009                                                             	 FAIL  	 .*                              	 # Server Side Include
-40012                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Reflected)
-40013                                                             	 FAIL  	 .*                              	 # Session Fixation
-40014                                                             	 FAIL  	 .*                              	 # Cross Site Scripting (Persistent)
-40015                                                             	 FAIL  	 .*                              	 # LDAP Injection
-40016                                                             	 FAIL  	 .*                              	 # XPath Injection
-40017                                                             	 FAIL  	 .*                              	 # XQuery Injection
-90019                                                             	 FAIL  	 .*                              	 # Server-Side Include
+40012	FAIL	.*	# Cross Site Scripting (Reflected)
+40013	FAIL	.*	# Session Fixation
+40014	FAIL	.*	# Cross Site Scripting (Persistent)
+40003	FAIL	.*	# CRLF Injection
+40007	FAIL	.*	# Remote OS Command Injection
+40008	FAIL	.*	# Remote File Inclusion
+40009	FAIL	.*	# Server Side Include
+40012	FAIL	.*	# Cross Site Scripting (Reflected)
+40013	FAIL	.*	# Session Fixation
+40014	FAIL	.*	# Cross Site Scripting (Persistent)
+40015	FAIL	.*	# LDAP Injection
+40016	FAIL	.*	# XPath Injection
+40017	FAIL	.*	# XQuery Injection
+90019	FAIL	.*	# Server-Side Include
