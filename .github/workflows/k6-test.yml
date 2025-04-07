@@ -14,6 +14,8 @@ jobs:
 
       - name: Setup k6
         uses: grafana/k6-action@v0.3.0
+        with:
+          filename: advanced_load_profile.js
 
       - name: Run k6 Combined Load Tests
         uses: grafana/run-k6-action@v1
