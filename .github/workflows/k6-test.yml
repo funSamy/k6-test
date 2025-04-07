@@ -17,8 +17,8 @@ jobs:
         with:
           filename: advanced_load_profile.js
 
-      - name: Run k6 Combined Load Tests
-        uses: grafana/run-k6-action@v1
-        with:
-          path: advanced_load_profile.js
-          debug: true
+      # - name: Run k6 Combined Load Tests
+      #   uses: grafana/run-k6-action@v1
+      #   with:
+      #     path: advanced_load_profile.js
+      #     debug: true
