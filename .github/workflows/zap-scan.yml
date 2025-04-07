@@ -6,6 +6,15 @@ on:
     - cron: '0 1 * * 0'
   workflow_dispatch:
     # Allow manual triggering
+    inputs:
+      full_scan:
+        description: 'Run full scan (includes active attacks)'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - true
+          - false
 
 jobs:
   zap-baseline-scan:
@@ -19,17 +28,18 @@ jobs:
         with:
           target: 'https://www.bitrab.online/'
           # The following are optional configurations
-          rules_file_name: '.github/workflows/zap-rules.tsv'
-          cmd_options: '-a -j'
+          rules_file_name: '.github/assets/zap-rules.tsv'
+          cmd_options: '-a -j -T 10 --spider-ajax-wait 10'
           allow_issue_writing: true
-          issue_title: 'ZAP Scan Report'
+          issue_title: 'ZAP Baseline Scan Report'
           token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: 'zap-baseline-scan-report'
           
   zap-full-scan:
     runs-on: ubuntu-latest
     needs: [zap-baseline-scan]
-    # Only run full scan when manually triggered
-    if: ${{ github.event_name == 'workflow_dispatch' }}
+    # Only run full scan when manually triggered with the full_scan input set to true
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.full_scan == 'true' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -39,8 +49,30 @@ jobs:
         with:
           target: 'https://www.bitrab.online/'
           # The following are optional configurations
-          rules_file_name: '.github/workflows/zap-rules.tsv'
-          cmd_options: '-a -j'
+          rules_file_name: '.github/assets/zap-rules.tsv'
+          cmd_options: '-a -j -T 15 --spider-ajax-wait 20 --recursion -n .github/assets/zap-full-scan-config.yml'
           allow_issue_writing: true
           issue_title: 'ZAP Full Scan Report'
-          token: ${{ secrets.GITHUB_TOKEN }} 
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: 'zap-full-scan-report'
+      
+#   zap-api-scan:
+#     runs-on: ubuntu-latest
+#     # Only run API scan when manually triggered with the full_scan input set to true
+#     if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.full_scan == 'true' }}
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+        
+#       - name: ZAP API Scan
+#         uses: zaproxy/action-api-scan@v0.5.0
+#         with:
+#           target: 'https://www.bitrab.online/php/'
+#           # API Definition configuration - for REST APIs
+#           # format: openapi
+#           # file_name: './path/to/openapi.yaml'
+#           cmd_options: '-a -j'
+#           allow_issue_writing: true
+#           issue_title: 'ZAP API Scan Report'
+#           token: ${{ secrets.GITHUB_TOKEN }}
+#           artifact_name: 'zap-api-scan-report' 

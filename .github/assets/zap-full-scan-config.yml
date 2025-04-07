@@ -1,0 +1,68 @@
+# ZAP Full Scan Config
+# This configures the full active scan with more aggressive settings
+
+# Adjust the scan strength (LOW, MEDIUM, HIGH, INSANE)
+# HIGH is recommended for thorough testing, but may be more invasive
+scanners:
+  # XSS scanner configuration
+  - id: 40012 # Cross Site Scripting (Reflected)
+    strength: HIGH
+    threshold: MEDIUM
+  
+  # SQL Injection scanner configuration
+  - id: 40018 # SQL Injection
+    strength: HIGH
+    threshold: MEDIUM
+    
+  # CSRF scanner configuration  
+  - id: 40014 # CSRF Tokens
+    strength: HIGH
+    threshold: MEDIUM
+
+  # Path traversal scanner configuration
+  - id: 6 # Path Traversal
+    strength: HIGH
+    threshold: MEDIUM
+    
+  # Command injection scanner configuration
+  - id: 40009 # Server Side Include
+    strength: HIGH
+    threshold: MEDIUM
+
+# Authentication configuration (uncomment and modify if needed)
+# authentication:
+#   method: "form"
+#   loginUrl: "https://www.bitrab.online/index.html"
+#   username: "username_field"
+#   password: "password_field"
+#   loginPageWait: 5
+#   loginRequestData: "username={%username%}&password={%password%}"
+
+# Session management configuration
+sessionManagement:
+  method: "cookie"
+  
+# Increase the default timeout for potentially slow responses
+globalTimeout: 120
+
+# Spider configuration
+spider:
+  maxDepth: 10
+  threadCount: 10
+  postForms: true
+  
+# AJAX Spider configuration
+ajaxSpider:
+  clickDefaultElems: true
+  clickElemsOnce: true
+  eventWait: 2000
+  maxCrawlDepth: 10
+  maxCrawlStates: 0
+  maxDuration: 0
+  numberOfBrowsers: 1
+  randomInputs: true
+  
+# Reporting options
+reporting:
+  progressToStdout: true
+  summaryPerHost: true 
