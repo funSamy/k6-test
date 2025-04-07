@@ -13,51 +13,51 @@ const successfulLogins = new Counter('successful_logins');
 
 // --- Test Options ---
 export const options = {
-    // Total test duration: ~30 minutes (across all scenarios)
+    // Total test duration: ~15 minutes (across all scenarios)
     scenarios: {
-        // Scenario 1: Normal Load Test (~10 minutes)
+        // Scenario 1: Normal Load Test (~5 minutes)
         normal_load: {
             executor: 'ramping-vus',
             startVUs: 1,
             stages: [
-                { duration: '2m', target: 100 }, // Ramp up
-                { duration: '6m', target: 100 }, // Steady state
-                { duration: '2m', target: 0 }   // Ramp down
+                { duration: '1m', target: 100 }, // Ramp up
+                { duration: '3m', target: 100 }, // Steady state
+                { duration: '1m', target: 0 }   // Ramp down
             ],
             exec: 'authenticatedUserJourney',
             gracefulStop: '30s'
         },
 
-        // Scenario 2: Stress Test (~10 minutes)
+        // Scenario 2: Stress Test (~5 minutes)
         // Gradually increases load to find performance limits
         stress_test: {
             executor: 'ramping-vus',
             startVUs: 10,
             stages: [
-                { duration: '3m', target: 500 },  // Ramp up to higher load
-                { duration: '5m', target: 500 },  // Sustain high load
-                { duration: '2m', target: 0 }    // Ramp down
+                { duration: '1m30s', target: 500 },  // Ramp up to higher load
+                { duration: '2m30s', target: 500 },  // Sustain high load
+                { duration: '1m', target: 0 }    // Ramp down
             ],
             exec: 'loginUser',
             gracefulStop: '30s',
-            startTime: '10m30s' // Start after normal load test
+            startTime: '5m30s' // Start after normal load test
         },
 
-        // Scenario 3: Spike Test (~10 minutes)
+        // Scenario 3: Spike Test (~5 minutes)
         // Simulates sudden traffic surges
         spike_test: {
             executor: 'ramping-vus',
             startVUs: 50,
             stages: [
-                { duration: '2m', target: 200 },     // Normal load
+                { duration: '1m', target: 200 },     // Normal load
                 { duration: '30s', target: 1500 },   // Quick ramp to spike
-                { duration: '2m', target: 1500 },    // Sustain spike
+                { duration: '1m30s', target: 1500 }, // Sustain spike
                 { duration: '30s', target: 200 },    // Quick recovery
-                { duration: '4m30s', target: 200 },  // Observe system recovery
+                { duration: '1m30s', target: 200 },  // Observe system recovery
             ],
             exec: 'mixedUserActions',
             gracefulStop: '30s',
-            startTime: '21m' // Start after stress test
+            startTime: '11m' // Start after stress test
         }
     },
     thresholds: {
