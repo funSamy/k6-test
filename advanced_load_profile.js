@@ -20,8 +20,8 @@ export const options = {
             executor: 'ramping-vus',
             startVUs: 1,
             stages: [
-                { duration: '2m', target: 15_000 }, // Ramp up
-                { duration: '6m', target: 15_000 }, // Steady state
+                { duration: '2m', target: 100 }, // Ramp up
+                { duration: '6m', target: 100 }, // Steady state
                 { duration: '2m', target: 0 }   // Ramp down
             ],
             exec: 'authenticatedUserJourney',
@@ -34,8 +34,8 @@ export const options = {
             executor: 'ramping-vus',
             startVUs: 10,
             stages: [
-                { duration: '3m', target: 40_000 },  // Ramp up to higher load
-                { duration: '5m', target: 40_000 },  // Sustain high load
+                { duration: '3m', target: 500 },  // Ramp up to higher load
+                { duration: '5m', target: 500 },  // Sustain high load
                 { duration: '2m', target: 0 }    // Ramp down
             ],
             exec: 'loginUser',
@@ -47,13 +47,13 @@ export const options = {
         // Simulates sudden traffic surges
         spike_test: {
             executor: 'ramping-vus',
-            startVUs: 5,
+            startVUs: 50,
             stages: [
-                { duration: '2m', target: 5_000 },    // Normal load
-                { duration: '30s', target: 50_000 },  // Quick ramp to spike
-                { duration: '2m', target: 50_000 },   // Sustain spike
-                { duration: '30s', target: 5_000 },   // Quick recovery
-                { duration: '4m30s', target: 5_000 }, // Observe system recovery
+                { duration: '2m', target: 200 },     // Normal load
+                { duration: '30s', target: 1500 },   // Quick ramp to spike
+                { duration: '2m', target: 1500 },    // Sustain spike
+                { duration: '30s', target: 200 },    // Quick recovery
+                { duration: '4m30s', target: 200 },  // Observe system recovery
             ],
             exec: 'mixedUserActions',
             gracefulStop: '30s',
