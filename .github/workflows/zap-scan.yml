@@ -10,11 +10,8 @@ on:
       full_scan:
         description: 'Run full scan (includes active attacks)'
         required: false
-        default: 'false'
-        type: choice
-        options:
-          - true
-          - false
+        default: false
+        type: boolean
 
 jobs:
   zap-baseline-scan:
@@ -29,7 +26,7 @@ jobs:
           target: 'https://www.bitrab.online/'
           # The following are optional configurations
           rules_file_name: '.github/assets/zap-rules.tsv'
-          cmd_options: '-a -j -T 10 --spider-ajax-wait 10'
+          cmd_options: '-a -j -T 10 -z "-config ajaxSpider.maxDuration=10"'
           allow_issue_writing: true
           issue_title: 'ZAP Baseline Scan Report'
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -50,7 +47,7 @@ jobs:
           target: 'https://www.bitrab.online/'
           # The following are optional configurations
           rules_file_name: '.github/assets/zap-rules.tsv'
-          cmd_options: '-a -j -T 15 --spider-ajax-wait 20 --recursion -n .github/assets/zap-full-scan-config.yml'
+          cmd_options: '-a -j -T 15 -z "-config ajaxSpider.maxDuration=20 -config ajaxSpider.clickDefaultElems=true"'
           allow_issue_writing: true
           issue_title: 'ZAP Full Scan Report'
           token: ${{ secrets.GITHUB_TOKEN }}
