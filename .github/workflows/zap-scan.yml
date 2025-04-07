@@ -13,6 +13,12 @@ on:
         default: false
         type: boolean
 
+# Add permissions to allow issue creation
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
 jobs:
   zap-baseline-scan:
     runs-on: ubuntu-latest
