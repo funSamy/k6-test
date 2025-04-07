@@ -36,7 +36,17 @@ jobs:
           allow_issue_writing: true
           issue_title: 'ZAP Baseline Scan Report'
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: 'zap-baseline-scan-report'
+          artifact_name: 'zap-baseline-report'
+          
+      - name: Upload ZAP Scan Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-baseline-results
+          path: |
+            report_json.json
+            report_md.md
+            report_html.html
           
   zap-full-scan:
     runs-on: ubuntu-latest
@@ -57,7 +67,17 @@ jobs:
           allow_issue_writing: true
           issue_title: 'ZAP Full Scan Report'
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifact_name: 'zap-full-scan-report'
+          artifact_name: 'zap-full-report'
+          
+      - name: Upload ZAP Full Scan Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-full-results
+          path: |
+            report_json.json
+            report_md.md
+            report_html.html
       
 #   zap-api-scan:
 #     runs-on: ubuntu-latest
@@ -78,4 +98,4 @@ jobs:
 #           allow_issue_writing: true
 #           issue_title: 'ZAP API Scan Report'
 #           token: ${{ secrets.GITHUB_TOKEN }}
-#           artifact_name: 'zap-api-scan-report' 
+#           artifact_name: 'zap-api-report' 
